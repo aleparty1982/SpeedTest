@@ -4,6 +4,7 @@ import tkinter as tk
 dl_var = None
 ul_var = None
 ping_var = None
+n_test = 1 # numero di test da fare
 
 def mbit_conversion(bits): 
     '''
@@ -17,6 +18,8 @@ def test_speed():
     '''
     st = speedtest.Speedtest()
     st.get_best_server()
+    #print(st.results.bytes_received)
+    #print(st.results.bytes_sent)
     dl = mbit_conversion(st.download())
     ul = mbit_conversion(st.upload())
     ping = st.results.ping
@@ -30,8 +33,24 @@ def refresh_values():
     '''
     global dl_var, ul_var, ping_var
     
-    dl, ul, ping = test_speed()
+    dl_tot = 0
+    ul_tot = 0
+    ping_tot = 0
+
+    for _ in range(n_test):
+        dl_i, ul_i, ping_i = test_speed()
+        print(dl_i, ul_i, ping_i)
+        print('\n')
+        dl_tot += dl_i
+        ul_tot += ul_i
+        ping_tot += ping_i
     
+    dl = dl_tot / n_test
+    ul = ul_tot / n_test
+    ping = ping_tot / n_test
+
+    #dl, ul, ping = test_speed()
+
     dl_var.set(f"Download Speed: {dl:.1f} Mb/s")
     ul_var.set(f"Upload Speed: {ul:.1f} Mb/s")
     ping_var.set(f"Ping: {int(ping)} ms")
