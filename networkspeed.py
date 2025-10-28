@@ -4,7 +4,7 @@ import tkinter as tk
 dl_var = None
 ul_var = None
 ping_var = None
-n_test = 1 # numero di test da fare
+#n_test = 1 # numero di test da fare
 
 def mbit_conversion(bits): 
     '''
@@ -31,11 +31,12 @@ def refresh_values():
     Fa il refresh dei valori di download, upload e ping, richiamando la funzione test_speed()
     Setta le variabili di testo da usare nell'interfaccia tkinter
     '''
-    global dl_var, ul_var, ping_var
+    global dl_var, ul_var, ping_var, valore_input
     
     dl_tot = 0
     ul_tot = 0
     ping_tot = 0
+    n_test = int(valore_input.get())
 
     for _ in range(n_test):
         dl_i, ul_i, ping_i = test_speed()
@@ -55,6 +56,8 @@ def refresh_values():
     ul_var.set(f"Upload Speed: {ul:.1f} Mb/s")
     ping_var.set(f"Ping: {int(ping)} ms")
 
+    print("Programma terminato")
+
 if __name__ == "__main__":
     
     # Inizializzo la finestra
@@ -67,6 +70,19 @@ if __name__ == "__main__":
     dl_var = tk.StringVar(value="Download Speed: N/A")
     ul_var = tk.StringVar(value="Upload Speed: N/A")
     ping_var = tk.StringVar(value="Ping: N/A")
+    valore_input = tk.StringVar()
+
+    # Valore di default
+    valore_input.set('1')
+
+    #n_test = int(valore_input.get())
+
+    # Cella di input del numero di test
+    casella_input = tk.Entry(
+        master=root,
+        textvariable=valore_input,
+        width=2
+    ).pack(padx=5, pady=5)
 
     # Bottone di avvio della funzione
     # Deve richiamare la funzione che fa il refresh dei valori di testo
@@ -96,6 +112,8 @@ if __name__ == "__main__":
         font=("Arial", 16)        
     ).pack(padx=5, pady=5, anchor=tk.W)
     
+    #print("Programma terminato")
+
     root.focus_force() # forza in primo piano all'apertura
     root.mainloop()
 
