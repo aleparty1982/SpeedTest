@@ -18,8 +18,6 @@ def test_speed():
     '''
     st = speedtest.Speedtest()
     st.get_best_server()
-    #print(st.results.bytes_received)
-    #print(st.results.bytes_sent)
     dl = mbit_conversion(st.download())
     ul = mbit_conversion(st.upload())
     ping = st.results.ping
@@ -63,7 +61,7 @@ if __name__ == "__main__":
     # Inizializzo la finestra
     root = tk.Tk()
     root.title("Speed Test")
-    root.geometry("300x150")
+    root.geometry("400x250")
     #root.attributes('-topmost', True) # se lo volessi SEMPRE in primo piano
     
     # Inizializzo le variabili tkinter
@@ -75,14 +73,19 @@ if __name__ == "__main__":
     # Valore di default
     valore_input.set('1')
 
-    #n_test = int(valore_input.get())
+    # Descrizione cella di input
+    descr_input = tk.Label(
+        master=root,
+        text='Inserire il numero di speed test da fare',
+        font=('Arial', 20)
+    ).grid(row=0, column=0)
 
     # Cella di input del numero di test
     casella_input = tk.Entry(
         master=root,
         textvariable=valore_input,
         width=2
-    ).pack(padx=5, pady=5)
+    ).grid(row=0, column=1, sticky=tk.S)
 
     # Bottone di avvio della funzione
     # Deve richiamare la funzione che fa il refresh dei valori di testo
@@ -90,7 +93,7 @@ if __name__ == "__main__":
         master=root,
         text="Avvia lo Speed Test",
         command=refresh_values
-    ).pack(padx=5, pady=5)
+    ).grid(row=1, column=0, columnspan=2, sticky='ew', pady=10)
 
     # Etichette dei tre valori
     # Usano textvariable collegato alla variabile tkinter
@@ -98,19 +101,19 @@ if __name__ == "__main__":
         master=root,
         textvariable=dl_var,
         font=("Arial", 16)
-    ).pack(padx=5, pady=5, anchor=tk.W)
+    ).grid(row=2, column=0, sticky=tk.W)
 
     etichetta_ul = tk.Label(
         master=root,
         textvariable=ul_var,
         font=("Arial", 16)
-    ).pack(padx=5, pady=5, anchor=tk.W)
+    ).grid(row=3, column=0, sticky=tk.W)
 
     etichetta_ping = tk.Label(
         master=root,
         textvariable=ping_var,
         font=("Arial", 16)        
-    ).pack(padx=5, pady=5, anchor=tk.W)
+    ).grid(row=4, column=0, sticky=tk.W)
     
     #print("Programma terminato")
 
