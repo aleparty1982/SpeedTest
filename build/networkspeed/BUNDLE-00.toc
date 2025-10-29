@@ -1,0 +1,3 @@
+([('networkspeed',
+   '/Users/alessandrofesta/Python Projects/SpeedTest/dist/networkspeed',
+   'EXECUTABLE')],)
