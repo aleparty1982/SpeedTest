@@ -34,27 +34,43 @@ def refresh_values():
     dl_tot = 0
     ul_tot = 0
     ping_tot = 0
-    n_test = int(valore_input.get())
-
-    for _ in range(n_test):
-        dl_i, ul_i, ping_i = test_speed()
-        print(dl_i, ul_i, ping_i)
-        print('\n')
-        dl_tot += dl_i
-        ul_tot += ul_i
-        ping_tot += ping_i
     
-    dl = dl_tot / n_test
-    ul = ul_tot / n_test
-    ping = ping_tot / n_test
+    try:
+        n_test = int(valore_input.get())
+    except ValueError:
+        error_window('Inserire un numero!')
+    else:
 
-    #dl, ul, ping = test_speed()
+        for _ in range(n_test):
+            dl_i, ul_i, ping_i = test_speed()
+            print(dl_i, ul_i, ping_i)
+            print('\n')
+            dl_tot += dl_i
+            ul_tot += ul_i
+            ping_tot += ping_i
+        
+        dl = dl_tot / n_test
+        ul = ul_tot / n_test
+        ping = ping_tot / n_test
 
-    dl_var.set(f"Download Speed: {dl:.1f} Mb/s")
-    ul_var.set(f"Upload Speed: {ul:.1f} Mb/s")
-    ping_var.set(f"Ping: {int(ping)} ms")
+        #dl, ul, ping = test_speed()
 
-    print("Programma terminato")
+        dl_var.set(f"Download Speed: {dl:.1f} Mb/s")
+        ul_var.set(f"Upload Speed: {ul:.1f} Mb/s")
+        ping_var.set(f"Ping: {int(ping)} ms")
+
+        print("Programma terminato")
+
+def error_window(messaggio: str):
+    win_error = tk.Tk()
+    win_error.title("Errore")
+    win_error.geometry("300x200")
+    errore = tk.Label(
+        master=win_error,
+        text=messaggio
+    ).pack()
+    win_error.focus_force()
+    win_error.mainloop()
 
 if __name__ == "__main__":
     
