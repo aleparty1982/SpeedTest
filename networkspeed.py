@@ -16,13 +16,17 @@ def test_speed():
     '''
     ritorna velocità di download, upload e ping
     '''
-    st = speedtest.Speedtest()
-    st.get_best_server()
-    dl = mbit_conversion(st.download())
-    ul = mbit_conversion(st.upload())
-    ping = st.results.ping
-    #print(f"Download: {dl:.1f} Mb/s\nUpload: {ul:.1f} Mb/s\nPing: {ping:.0f} ms")
-    return dl, ul, ping
+    try:
+        st = speedtest.Speedtest()
+    except:
+        error_window('Impossibile avviare il test')
+    else:
+        st.get_best_server()
+        dl = mbit_conversion(st.download())
+        ul = mbit_conversion(st.upload())
+        ping = st.results.ping
+        #print(f"Download: {dl:.1f} Mb/s\nUpload: {ul:.1f} Mb/s\nPing: {ping:.0f} ms")
+        return dl, ul, ping
 
 def refresh_values():
     '''
